@@ -1,0 +1,14 @@
+input {
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: groove;
+    background-color: #eee;
+}
+
+.no-outline {
+    outline: none;
+    background-color: transparent;
+    border: transparent;
+    font-size: 15px;
+}
