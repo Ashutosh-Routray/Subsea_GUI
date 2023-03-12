@@ -1,6 +1,8 @@
 import React, { useState, useRef, useCallback } from 'react';
 
 import ReactFlow, {
+  Edge,
+  Position,
   ReactFlowProvider,
   addEdge,
   useNodesState,
@@ -9,7 +11,9 @@ import ReactFlow, {
   Background,
   updateEdge,
   ConnectionLineType,
-  MarkerType, useReactFlow,
+  MarkerType,
+  useOnSelectionChange,
+   useReactFlow,
   MiniMap,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
@@ -30,7 +34,6 @@ import Snackbar from '@mui/material/Snackbar';
 import Tooltip from '@mui/material/Tooltip';
 
 import './index.css';
-
 
 const flowKey = 'example-flow';
 const getNodeId = () => `randomnode_${+new Date()}`;
@@ -103,11 +106,22 @@ const App = () => {
     edgeUpdateSuccessful.current = true;
   }, []);
 
+  
+
   const onConnect = useCallback((params) => setEdges((eds) => addEdge({
-    ...params, type: "smoothstep", markerEnd: {
+    ...params, animated:true, style: { stroke: '#000000' } , markerEnd: {
       type: MarkerType.ArrowClosed,
+      width: 20,
+      height: 20,
+      color: '#000000',
     },
   }, eds)), []);
+
+  // const onConnect = useCallback(
+  //   (params) =>
+  //     setEdges((eds) => addEdge({ ...params, animated: true, style: { stroke: '#fff' } }, eds)),
+  //   []
+  // );
 
   const onDragOver = useCallback((event) => {
     event.preventDefault();
@@ -203,7 +217,7 @@ const App = () => {
         <div className="reactflow-wrapper" ref={reactFlowWrapper}>
           <header class="App-header">
             <div className="Header-spacer">
-              <label>Subsea Field Layout Editor</label>
+              <label>SubSea Field Layout Editor</label>
               <Tooltip title="Save Layout">
                 <IconButton onClick={onSave} variant="contained">
                   <SaveIcon />
